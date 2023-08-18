@@ -5,7 +5,7 @@ type Props ={}
 
 const FollowContainer = ({} : Props) => {
     return <>
-        <div className='w-80 h-80 bg-gray-200'> 
+        <div className='w-80 h-80 bg-white'> 
             
     </div>
     

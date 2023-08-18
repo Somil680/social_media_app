@@ -5,7 +5,7 @@ type Props ={}
 
 const FeedContainer = ({} : Props) => {
     return <>
-        <div className='w-64 h-80 bg-gray-200'> 
+        <div className='w-64 h-80 bg-white'> 
           
             
     </div>

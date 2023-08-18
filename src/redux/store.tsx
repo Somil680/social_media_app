@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import likereducer from "./slices/like"
+import postReducer from "./slices/postSlice"
 
 export const store = configureStore({
     reducer: {
-      like : likereducer
+      post : postReducer
   },
 })
 
