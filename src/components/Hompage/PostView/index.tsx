@@ -4,44 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { BsThreeDots, BsHeartFill } from 'react-icons/bs'
 import { FaRegComment } from 'react-icons/fa'
 import { IoPaperPlaneOutline } from 'react-icons/io5'
-import post from '@/assets/images/post.png.png'
-import Image from 'next/image'
 import LikeButton from '../LikeButton/index.'
 import BookmarkButton from '../BookmarkButton'
 import { getAllPost } from '../../../services/services'
-// ======================================================
-const posts = [
-  {
-    _id: 121,
-    content:
-      'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores ',
-    image_URL: post,
-    likes: {
-      likeCount: 0,
-      likedBy: [],
-      dislikedBy: [],
-    },
-    username: 'adarshbalika',
-    // createdAt: formatDate(),
-    // updatedAt: formatDate(),
-  },
-  {
-    _id: 212,
-    content:
-      'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et.',
-    image_URL: post,
 
-    likes: {
-      likeCount: 0,
-      likedBy: [],
-      dislikedBy: [],
-    },
-    username: 'adarshbalak',
-    // createdAt: formatDate(),
-    // updatedAt: formatDate(),
-  },
-]
-// =======================================================
 const PostView = () => {
   const [data, setData] = useState([])
   const fetchAllPosts = async () => {
@@ -49,7 +15,6 @@ const PostView = () => {
     if (err || !res || !res.ok) throw new Error('Fetch failed!')
     const { posts } = await res.json()
     setData(posts)
-    console.log('🚀 ~ file: index.tsx:57 ~ fetchAllPosts ~ json:', data)
   }
   useEffect(() => {
     fetchAllPosts()
@@ -125,25 +90,3 @@ const PostView = () => {
 }
 
 export default PostView
-
-{
-  /* <div className='flex justify-between w-full'>
-    <User
-        src={item.image_URL}
-        name=""
-        className='pl-0'
-    />
-    <Input
-        width='100%'
-        clearable
-        color='warning'
-        contentRightStyling={false}
-        placeholder="Type your message..."
-        contentRight={
-            <SendButton>
-                <SendIcon filled={undefined} size={undefined} height={undefined} width={undefined} label={undefined} className={undefined}  />
-            </SendButton>
-        }
-    />
-</div> */
-}

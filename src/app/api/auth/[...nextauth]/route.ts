@@ -15,7 +15,7 @@ const authOptions = {
 
         async authorize(credentials, req) {
           
-        const res = await fetch(`${API_BASE_URL}/user/login`, {
+        const res = await fetch(`${API_BASE_URL}/auth/login`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -25,20 +25,14 @@ const authOptions = {
                 password: credentials?.password,
             }),
         })
-        console.log("🚀 ~ file: route.ts:20 ~ authorize ~ res:", res)
         let {user} = await res.json()
         console.log("🚀 ~ file: route.ts:30 ~ authorize ~ user:", user)
-        // user = user?.user
-        console.log(user)
-
         if (user) {
-          // Any object returned will be saved in `user` property of the JWT
           console.log('hello')
           return user
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null
-
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },
