@@ -17,12 +17,12 @@ export default function Home() {
 
   return (
     <div className="max-w-[1256px] h-full mt-2 flex flex-col justify-center items-center ">
-      <CreatePost />
+      {/* <CreatePost /> */}
 
-      <div className=" flex justify-center items-center  gap-10 rounded-md mt-10 ">
+      <div className=" flex justify-center   gap-10 rounded-md mt-10 ">
         {/* <FeedContainer /> */}
         <PostView />
-        {/* <FollowContainer /> */}
+        <FollowContainer />
       </div>
     </div>
   )

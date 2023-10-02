@@ -1,9 +1,10 @@
-'use client'
+' use client;'
 import { closeModal } from '@/redux/slices/modal'
 import { RootState } from '@/redux/store'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ProfileModal from '../Modal/Profile'
+import UploadImage from '../Modal/uploadIamge'
 import { MdClose } from 'react-icons/md'
 import './styles.css'
 
@@ -28,6 +29,7 @@ const ModalManager = ({}: Props) => {
           <div className="fixed top-0 left-0 w-full h-full z-50 grid justify-center items-center overflow-y-auto py-10 bg-black bg-opacity-[0.6]">
             <main className="relative  -webkit-border-radius-[15px]">
               {activeModal === 'profile' && <ProfileModal />}
+              {activeModal === 'uploadImage' && <UploadImage />}
 
               <span
                 className="absolute top-4 , right-4 cursor-pointer w-8  h-8 grid place-items-center rounded-full hover:bg-gray-500"

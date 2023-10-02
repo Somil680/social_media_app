@@ -1,4 +1,4 @@
-'use client'
+' use client;'
 import Link from 'next/link'
 import React from 'react'
 import { AiFillHome } from 'react-icons/ai'
@@ -6,6 +6,7 @@ import { BiSearch } from 'react-icons/bi'
 import { BsMessenger } from 'react-icons/bs'
 import { VscAccount } from 'react-icons/vsc'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import Image from 'next/image'
 
 type Props = {}
 interface NavList {
@@ -29,15 +30,16 @@ const icons: NavList[] = [
     name: 'Message',
     url: '/',
   },
-  {
-    icon: <VscAccount />,
-    name: 'Profile',
-    url: '/profile',
-  },
+  // {
+  //   icon: <VscAccount />,
+  //   name: 'Profile',
+  //   url: '/profile',
+  // },
 ]
 
 const Navbar = ({}: Props) => {
   const { data: session } = useSession()
+  console.log('🚀 ~ file: index.tsx:42 ~ Navbar ~ session:', session)
 
   return (
     <>
@@ -57,14 +59,26 @@ const Navbar = ({}: Props) => {
                 </Link>
               </>
             ))}
+            <div>
+              <Link href="/profile">
+                <Image
+                  src={session?.user?.profile_pic}
+                  width={50}
+                  height={50}
+                  quality={100}
+                  className="rounded-full"
+                  alt=""
+                />
+              </Link>
+            </div>
             {session ? (
               <>
-                Signed in as {session?.user?.email} <br />
+                {/* Signed in as {session?.user?.email} <br /> */}
                 <button onClick={() => signOut()}>Sign out</button>
               </>
             ) : (
               <>
-                Not signed in <br />
+                {/* Not signed in <br /> */}
                 <button onClick={() => signIn()}>Sign in</button>
               </>
             )}

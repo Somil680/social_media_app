@@ -1,5 +1,19 @@
 import { API_BASE_URL } from "./constant";
 
+/** POST UPLOAD IMAGE api/uploadImage */
+export const postUploadImage = async (data :FormData) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/uploadFile`, {
+      method: 'POST',
+      body: data,
+      // headers: { 'Content-Type': 'application/json' },
+       headers: { },
+    })
+    return { res: res, err: null }
+  } catch (error) {
+    return { err: error, res: null }
+  }
+}
 /** POST REGISTER NEW USER api/user/signup */
 export const registerNewUser = async (data :any) => {
   try {

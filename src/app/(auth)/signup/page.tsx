@@ -1,4 +1,4 @@
-'use client'
+' use client'
 import { registerNewUser } from '@/services/services'
 import { NextRouter, useRouter } from 'next/router'
 import React, { useState } from 'react'

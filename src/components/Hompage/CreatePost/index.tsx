@@ -1,7 +1,9 @@
-'use client'
+' use client;'
 import { sendingPost } from '@/services/services'
 import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
+import Image from 'next/image'
+
 // import styles from './styles.module.css'
 
 type Props = {}
@@ -44,7 +46,16 @@ const CreatePost = ({}: Props) => {
       {openEditor ? (
         <div className="border-2 w-[500px] min-h-20 flex flex-col gap-4  px-3 py-3 bg-white rounded-xl ">
           <div className="flex items-center gap-5">
-            <div className="w-12 h-12 rounded-full bg-gray-300 "></div>
+            <div className="w-12 h-12 rounded-full">
+              <Image
+                src={session?.user?.profile_pic}
+                width={50}
+                height={50}
+                quality={100}
+                className="rounded-full"
+                alt=""
+              />
+            </div>
             <h3>{session?.user?.username}</h3>
           </div>
           <div>
@@ -88,13 +99,22 @@ const CreatePost = ({}: Props) => {
         </div>
       ) : (
         <div className="border-2 w-[500px] min-h-20 flex items-center gap-4 py-3  px-3 bg-white rounded-xl ">
-          <div className="w-12 h-12 rounded-full bg-gray-300 "></div>
-          <div
-            className="w-[430px]  h-12 rounded-3xl border-2 border-blue-600 pl-7 flex items-center "
+          <div className="w-12 h-12 rounded-full ">
+            <Image
+              src={session?.user?.profile_pic}
+              width={50}
+              height={50}
+              quality={100}
+              className="rounded-full"
+              alt=""
+            />
+          </div>
+          <button
+            className="w-[430px]  h-12 rounded-3xl border-2 border-gray-300 text-gray-400  pl-7 flex items-center "
             onClick={() => setEditor(true)}
           >
             Start a Post
-          </div>
+          </button>
         </div>
       )}
     </div>

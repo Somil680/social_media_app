@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 type Props = {}
 
 const ProfileModal = ({}: Props) => {
+  const dispatch = useDispatch()
   const { data, getData } = useSelector((state: RootState) => state.modal)
   const [inputData, setInputData] = useState({
     first_name: '',
@@ -22,7 +23,6 @@ const ProfileModal = ({}: Props) => {
     city: '',
   })
   const [loading, setLoading] = useState(false)
-  const dispatch = useDispatch()
   const handleInputChange = (e: any) => {
     const { name, value } = e.target
     setInputData((prev) => ({
