@@ -47,7 +47,6 @@ const UploadImage = ({}: Props) => {
       '🚀 ~ file: index.tsx:46 ~ handelSubmit ~ imageFormData:',
       imageFormData
     )
-
     const { res: imgRes, err: imgErr } = await postUploadImage(imageFormData)
     if (imgErr || !imgRes || !imgRes.ok) throw new Error('Fetch failed!')
     const { data } = await imgRes.json()

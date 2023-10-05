@@ -14,9 +14,9 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body className={inter.className}>
-        <main className="w-full h-full flex flex-col justify-center items-center ">
+        <main className="w-full h-full flex flex-col justify-center items-center  text-foreground bg-background ">
           <Providers>{children}</Providers>
         </main>
       </body>

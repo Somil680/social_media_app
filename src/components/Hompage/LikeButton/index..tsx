@@ -24,8 +24,13 @@ const LikeButton = ({ item }: Props) => {
   }
   return (
     <>
-      <div onClick={toggleHandler}>
-        {isInLiked ? <BsHeartFill fill="red" /> : <BsHeart />}
+      <div onClick={toggleHandler} className="flex gap-3">
+        {isInLiked ? (
+          <BsHeartFill fill="red" fontSize={20} />
+        ) : (
+          <BsHeart fontSize={20} />
+        )}
+        <p className="text-sm">Like</p>
       </div>
     </>
   )
