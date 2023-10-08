@@ -101,15 +101,17 @@ const Profile = ({}: Props) => {
                     className="border w-52 h-52 rounded-full ml-8 absolute top-20 bg-white overflow-hidden cursor-pointer "
                     onClick={() => handleChangeImage('profile_image')}
                   >
-                    {item.profile_pic ?? (
-                      <Image
-                        src={item?.profile_pic}
-                        alt=""
-                        isZoomed
-                        width={208}
-                        height={208}
-                      />
-                    )}
+                    <Image
+                      src={
+                        item?.profile_pic
+                          ? item.profile_pic
+                          : ' https://res.cloudinary.com/duiavy8qd/image/upload/v1696592489/i61gsmv5rhenrzor65mg.png'
+                      }
+                      alt=""
+                      isZoomed
+                      width={208}
+                      height={208}
+                    />
                   </div>
                   <div className=" mt-24 ml-8 gap-2 h-full  flex flex-col py-4">
                     <h1 className="text-3xl font-extrabold">

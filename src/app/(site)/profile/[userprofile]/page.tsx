@@ -19,7 +19,7 @@ const UserProfile = ({ params }: { params: { userprofile: string } }) => {
   }
   useEffect(() => {
     fetchUser()
-  }, [])
+  })
   return (
     <>
       <div className="mt-[70px]">

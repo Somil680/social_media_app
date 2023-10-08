@@ -76,7 +76,7 @@ const ProfileModal = ({}: Props) => {
         city: data?.users?.city,
       }
     })
-  }, [])
+  }, [data])
 
   return (
     <Card className=" bg-white  opacity-100 ">
