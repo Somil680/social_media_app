@@ -151,7 +151,9 @@ const Navbar = ({}: Props) => {
                     </Link>
                   </DropdownItem>
                   <DropdownItem key="copy">
-                    <Button onClick={() => signOut()}>Sign out</Button>
+                    <Button color="danger" fullWidth onClick={() => signOut()}>
+                      Logout
+                    </Button>
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
