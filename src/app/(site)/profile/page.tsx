@@ -101,7 +101,7 @@ const Profile = ({}: Props) => {
                     className="border w-52 h-52 rounded-full ml-8 absolute top-20 bg-white overflow-hidden cursor-pointer "
                     onClick={() => handleChangeImage('profile_image')}
                   >
-                    {item.profile_pic ? (
+                    {item.profile_pic ?? (
                       <Image
                         src={item?.profile_pic}
                         alt=""
@@ -109,8 +109,6 @@ const Profile = ({}: Props) => {
                         width={208}
                         height={208}
                       />
-                    ) : (
-                      <Avatar radius="full" size="md" src={item?.profile_pic} />
                     )}
                   </div>
                   <div className=" mt-24 ml-8 gap-2 h-full  flex flex-col py-4">
