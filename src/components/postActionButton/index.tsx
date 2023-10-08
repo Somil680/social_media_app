@@ -1,3 +1,4 @@
+import { fetchFeedData } from '@/redux/slices/feed'
 import { fetchUserData } from '@/redux/slices/userData'
 import { RootState } from '@/redux/store'
 import {
@@ -15,14 +16,16 @@ import { useDispatch, useSelector } from 'react-redux'
 
 type Props = {
   userData: any
-  getData: () => Promise<void>
 }
 
-const PostActionButton = ({ userData, getData }: Props) => {
+const PostActionButton = ({ userData }: Props) => {
+  const dispatch = useDispatch<any>()
+
   const { data } = useSelector((state: RootState) => state.profile)
+  console.log('🚀 ~ file: index.tsx:25 ~ PostActionButton ~ data:', data)
   const [isLike, setIsLike] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
-  const liked = userData?.like.includes(userData?.userId)
+  const liked = userData?.like.includes(data?.users?._id)
   const arrayOfSaved = data?.users?.bookmark.map((item: any) => item._id)
   const Saved = arrayOfSaved?.includes(userData?._id)
 
@@ -33,9 +36,7 @@ const PostActionButton = ({ userData, getData }: Props) => {
     const { res, err } = await putLikeThePost(jsonData, userData?._id)
     if (err || !res || !res.ok) throw new Error('Fetch failed!')
     const { message } = await res.json()
-    if (getData) {
-      getData()
-    }
+    dispatch(fetchFeedData())
   }
   const handleOnClickSaved = async (str: string) => {
     const jsonData = {

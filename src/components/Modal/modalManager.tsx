@@ -7,6 +7,7 @@ import ProfileModal from '../Modal/Profile'
 import UploadImage from '../Modal/uploadIamge'
 import { MdClose } from 'react-icons/md'
 import './styles.css'
+import CreatePost from './createPost'
 
 type Props = {}
 
@@ -26,10 +27,11 @@ const ModalManager = ({}: Props) => {
     <>
       <section className="modal-manager">
         {activeModal !== null && (
-          <div className="fixed top-0 left-0 w-full h-full z-50 grid justify-center items-center overflow-y-auto py-10 bg-black bg-opacity-[0.6]">
+          <div className="fixed top-0 left-0 w-full h-full z-50 grid justify-center items-center overflow-y-auto  bg-black bg-opacity-[0.6]">
             <main className="relative  -webkit-border-radius-[15px]">
               {activeModal === 'profile' && <ProfileModal />}
               {activeModal === 'uploadImage' && <UploadImage />}
+              {activeModal === 'createPost' && <CreatePost />}
 
               <span
                 className="absolute top-4 , right-4 cursor-pointer w-8  h-8 grid place-items-center rounded-full hover:bg-gray-500"
@@ -46,51 +48,3 @@ const ModalManager = ({}: Props) => {
 }
 
 export default ModalManager
-
-//  padding: 2rem;
-
-//     min-width: 700px;
-//     height: 700px;
-//     overflow-y: scroll;
-//     position: relative;
-//     background-color: #f6fafd;
-//     border-radius: 15px;
-//     -webkit-border-radius: 15px;
-//     -moz-border-radius: 15px;
-//     -ms-border-radius: 15px;
-//     -o-border-radius: 15px;
-
-// .modal {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   z-index: 50;
-//   display: grid;
-//   justify-content: center;
-//   align-items: center;
-//   overflow-y: auto;
-//   padding: 40px 0;
-//   background-color: rgb(0 0 0 / 0.6);
-// }
-
-// .modal main {
-//   position: relative;
-// }
-
-// .close-icon {
-//   position: absolute;
-//   top: 1rem;
-//   right: 1rem;
-//   cursor: pointer;
-//   width: 2rem;
-//   height: 2rem;
-//   display: grid;
-//   place-items: center;
-//   border-radius: 100%;
-// }
-
-// .close-icon:hover {
-//   background-color: #5d49ab2f;
-// }

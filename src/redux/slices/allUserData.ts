@@ -1,4 +1,4 @@
-import { getUserById } from '@/services/services';
+import { getAllUser } from '@/services/services';
 import { createSlice, createAsyncThunk, Dispatch } from '@reduxjs/toolkit';
 interface UserData {
     data: any
@@ -13,33 +13,36 @@ const initialState : UserData = {
 };
 
 // Define an asynchronous thunk action for fetching data
-export const fetchUserData = createAsyncThunk('fetchUserData', async (id :any) => {
+export const fetchAllUserData = createAsyncThunk('fetchAllUserData', async (_id : any) => {
     try {
-    const { res, err } = await getUserById(id)
+    const { res, err } = await getAllUser()
     if (!res || err) throw new Error('fetch Failed')
-    const data = await res.json()
-    return data
+        const { users } = await res.json()
+         const filterData = users.filter(
+      (item: any) => item._id !== _id
+    )
+    return users
   } catch (error) {
     throw error;
   }
 });
 
 // Create a slice with reducers
-const profileSlice = createSlice({
-  name: 'profile',
+const usersSlice = createSlice({
+  name: 'allUsers',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserData.pending, (state) => {
+      .addCase(fetchAllUserData.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchUserData.fulfilled, (state, action) => {
+      .addCase(fetchAllUserData.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
         state.error = null;
       })
-      .addCase(fetchUserData.rejected, (state, action) => {
+      .addCase(fetchAllUserData.rejected, (state, action) => {
         state.loading = false;
         state.data = null;
         state.error = action.error.message;
@@ -47,4 +50,4 @@ const profileSlice = createSlice({
   },
 });
 
-export default profileSlice.reducer;
+export default usersSlice.reducer;

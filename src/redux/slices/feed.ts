@@ -1,4 +1,4 @@
-import { getUserById } from '@/services/services';
+import { getAllPost } from '@/services/services';
 import { createSlice, createAsyncThunk, Dispatch } from '@reduxjs/toolkit';
 interface UserData {
     data: any
@@ -13,33 +13,39 @@ const initialState : UserData = {
 };
 
 // Define an asynchronous thunk action for fetching data
-export const fetchUserData = createAsyncThunk('fetchUserData', async (id :any) => {
+export const fetchFeedData = createAsyncThunk('fetchFeedData', async () => {
     try {
-    const { res, err } = await getUserById(id)
+    const { res, err } = await getAllPost()
     if (!res || err) throw new Error('fetch Failed')
-    const data = await res.json()
-    return data
+      const { posts } = await res.json()
+  //     for (let i = posts.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1)); // Generate a random index between 0 and i
+  //   // Swap elements at i and j
+  //   [posts[i], posts[j]] = [posts[j], posts[i]];
+  // }
+          const post = posts.slice().reverse()
+    return post
   } catch (error) {
     throw error;
   }
 });
 
 // Create a slice with reducers
-const profileSlice = createSlice({
-  name: 'profile',
+const feedSlice = createSlice({
+  name: 'feeds',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserData.pending, (state) => {
+      .addCase(fetchFeedData.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchUserData.fulfilled, (state, action) => {
+      .addCase(fetchFeedData.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
         state.error = null;
       })
-      .addCase(fetchUserData.rejected, (state, action) => {
+      .addCase(fetchFeedData.rejected, (state, action) => {
         state.loading = false;
         state.data = null;
         state.error = action.error.message;
@@ -47,4 +53,4 @@ const profileSlice = createSlice({
   },
 });
 
-export default profileSlice.reducer;
+export default feedSlice.reducer;

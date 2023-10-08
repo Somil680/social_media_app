@@ -1,5 +1,6 @@
 import NextAuth, { SessionStrategy } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
+import GitHubProvider from 'next-auth/providers/github'
 import { API_BASE_URL } from '@/services/constant'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -37,6 +38,14 @@ const authOptions = {
         }
       },
     }),
+      GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID as any, 
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET as any
+      }),
+        GitHubProvider({
+    clientId: process.env.GITHUB_ID as string,
+    clientSecret: process.env.GITHUB_CLIENT_ID as string
+  })
     ],
       debug: true,
   session: {
@@ -60,6 +69,12 @@ const authOptions = {
       session.accessToken = token.token.accessToken as any
       console.log("🚀 ~ file: route.ts:58 ~ session ~  session.accessToken:",  session.accessToken)
       return session
+    },
+     async signIn({ account , profile }:any) {
+      if (account.provider === "google") {
+        return profile.email_verified && profile.email.endsWith("@gmail.com")
+      }
+      return true // Do different verification for other providers that don't have `email_verified`
     },
   },
   pages: {

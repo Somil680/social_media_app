@@ -1,12 +1,5 @@
-' use client;'
-import React, { useEffect, useState } from 'react'
-// import styles from './styles.module.css'
-import { BsThreeDots, BsHeartFill } from 'react-icons/bs'
-import { FaRegComment } from 'react-icons/fa'
-import { IoPaperPlaneOutline } from 'react-icons/io5'
-import LikeButton from '../LikeButton/index.'
-import BookmarkButton from '../BookmarkButton'
-import { getAllPost } from '../../../services/services'
+import React from 'react'
+import { BsHeartFill } from 'react-icons/bs'
 import Image from 'next/image'
 import {
   Card,
@@ -17,79 +10,53 @@ import {
   Button,
   Divider,
 } from '@nextui-org/react'
-import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns'
+import { formatDistanceToNowStrict } from 'date-fns'
 import PostActionButton from '@/components/postActionButton'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
 
 const PostView = () => {
-  const [data, setData] = useState([])
-  const fetchAllPosts = async () => {
-    const { res, err }: any = await getAllPost()
-    if (err || !res || !res.ok) throw new Error('Fetch failed!')
-    const { posts } = await res.json()
-    setData(posts)
-  }
-  useEffect(() => {
-    fetchAllPosts()
-  }, [])
-  const [isFollowed, setIsFollowed] = React.useState(false)
+  const { data, loading, error } = useSelector(
+    (state: RootState) => state.feeds
+  )
+  const { data: userData } = useSelector((state: RootState) => state.allUsers)
 
-  const [seeMore, setSeeMore] = useState(false)
-  const handleSeeMore = () => {}
-  // ============================================================================================================================================================================
   return (
     <>
       <section className="w-full h-full  flex flex-col items-center gap-y-3 ">
-        {data.map((item: any, index) => {
+        {data?.map((item: any, index: any) => {
           const likeArr: string[] = item?.like ? Object.values(item?.like) : []
-
+          const fetchUser = userData?.filter(
+            (element: any) => element._id === item.userId
+          )
           return (
             <>
               <Card className="w-[500px]" key={item._id}>
                 <CardHeader className="justify-between">
-                  <div className="flex gap-5">
-                    <Avatar
-                      isBordered
-                      radius="full"
-                      size="md"
-                      src={item?.profile_pic}
-                    />
-                    <div className="flex flex-col gap-1 items-start justify-center">
-                      <h4 className="text-small font-semibold leading-none text-default-600">
-                        @{item?.username}
-                      </h4>
-                      <h5 className="text-small tracking-tight text-default-400">
-                        @zoeylang
-                      </h5>
-                    </div>
-                  </div>
-
-                  {/* <Button
-                  className={
-                    isFollowed
-                      ? 'bg-transparent text-foreground border-default-200'
-                      : ''
-                  }
-                  color="primary"
-                  radius="full"
-                  size="sm"
-                  variant={isFollowed ? 'bordered' : 'solid'}
-                  onPress={() => setIsFollowed(!isFollowed)}
-                >
-                  {isFollowed ? 'Unfollow' : 'Follow'}
-                </Button> */}
+                  {fetchUser?.map((row: any) => (
+                    <>
+                      <div className="flex gap-5" key={row._id}>
+                        <Avatar
+                          isBordered
+                          radius="full"
+                          size="md"
+                          src={row?.profile_pic}
+                        />
+                        <div className="flex flex-col gap-1 items-start justify-center">
+                          <h4 className="text-small font-semibold leading-none text-default-600">
+                            {row?.first_name}&nbsp;{row.last_name}
+                          </h4>
+                          <h5 className="text-small tracking-tight text-default-400">
+                            @{row?.username}
+                          </h5>
+                        </div>
+                      </div>
+                    </>
+                  ))}
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small  overscroll-none  overscroll-y-none overflow-y-hidden">
                   <div className="flex items-end">
-                    <p
-                      className={`${
-                        seeMore ? 'line-clamp-none' : 'line-clamp-3'
-                      }`}
-                    >
-                      {item.content}
-                    </p>
-                    {/* <span onClick={() => setSeeMore(true)} className="text-xs">
-                    see more.
-                  </span> */}
+                    <p>{item.content}</p>
                   </div>
                   <span className="pt-2 text-default-400">
                     {item.caption}
@@ -123,66 +90,12 @@ const PostView = () => {
                       </p>
                     </div>
                   </div>
-
                   <Divider className="mt-1" />
                 </CardBody>
                 <CardFooter className="gap-2">
-                  <PostActionButton userData={item} getData={fetchAllPosts} />
+                  <PostActionButton userData={item} />
                 </CardFooter>
               </Card>
-
-              {/* User information  */}
-              {/* <div className="flex justify-between ">
-              <div className="flex gap-3">
-                <Image
-                  src={item.image_URL}
-                  alt=""
-                  width={100}
-                  height={100}
-                  className="w-10 h-10 rounded-full"
-                />
-                <div className="flex flex-col">
-                  <p className="text-sm font-medium">{item.caption}</p>
-                  <p className="text-xs text-gray-400 ">
-                    {' '}
-                    UI/UX Designer @Github
-                  </p>
-                </div>
-              </div>
-              <div className="text-2xl ">
-                <BsThreeDots />
-              </div>
-            </div>
-            user post content
-            <div>
-              <p className="line-clamp-2 text-sm">{item.content}</p>
-              <p className="text-gray-400 hover:underline">more</p>
-            </div>
-            user post Image
-            <div className="w-full h-full  rounded items-center flex justify-center overflow-hidden">
-              <Image
-                alt="post"
-                src={item.image_URL}
-                width={1000}
-                height={1000}
-              />
-            </div>
-            like comment  share icon 
-            <div className="flex justify-between w-full">
-              <div className="text-3xl flex gap-10">
-                <LikeButton item={item} />
-                <FaRegComment />
-                <IoPaperPlaneOutline />
-              </div>
-              <div className="text-3xl">
-                <BookmarkButton item={item} />
-              </div>
-            </div>
-            <hr />
-            likes container 
-          */}
-
-              {/* */}
             </>
           )
         })}

@@ -1,7 +1,7 @@
 ' use client'
 import { Provider } from 'react-redux'
 import { store } from '@/redux/store'
-import { SessionProvider } from 'next-auth/react'
+import { SessionProvider, useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { NextUIProvider } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
@@ -15,35 +15,26 @@ interface Props {
 }
 
 export function Providers({ children, session }: Props) {
-  const [showLoader, setShowLoader] = useState(false)
+  const [showLoader, setShowLoader] = useState(true)
+  console.log(
+    '🚀 ~ file: providers.tsx:19 ~ Providers ~ showLoader:',
+    showLoader
+  )
   useEffect(() => {
-    switch (document.readyState) {
-      case 'loading':
-        return setShowLoader(true)
-
-      case 'interactive': {
-        // The document has finished loading and we can access DOM elements.
-        // Sub-resources such as scripts, images, stylesheets and frames are still loading.
-        return setShowLoader(true)
-      }
-      case 'complete':
-        // The page is fully loaded.
-
-        console.log(
-          `The first CSS rule is: ${document.styleSheets[0].cssRules[0].cssText}`
-        )
-        return setShowLoader(false)
-    }
+    if (document.readyState === 'complete') return setShowLoader(false)
+    window.addEventListener('load', () => {
+      setShowLoader(false)
+    })
   }, [])
+
   return (
     <NextUIProvider>
       <Provider store={store}>
         <SessionProvider session={session}>
-          {showLoader && (
+          {showLoader ?? (
             <div
               style={{
                 display: 'flex',
-                position: 'fixed',
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100vw',
@@ -63,7 +54,7 @@ export function Providers({ children, session }: Props) {
               </p>
             </div>
           )}
-          {children}
+          <>{children}</>
         </SessionProvider>
         {/* <ToastContainer /> */}
       </Provider>
