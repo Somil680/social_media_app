@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import PostView from '@/components/Hompage/PostView'
 import FollowContainer from '@/components/Hompage/FollowContainer'
-import CreatePost from '@/components/Hompage/CreatePost'
 import { Avatar, Button, Card, Divider } from '@nextui-org/react'
 import Loading from './loading'
 import FeedContainer from '@/components/Hompage/FeedContainer'
