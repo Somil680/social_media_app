@@ -1,13 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
-import likereducer from "./slices/like"
+import postReducer from './slices/postSlice'
+import modalReducer from './slices/modal'
+import profileReducer from './slices/userData'
+import allUsersReducer from './slices/allUserData'
+import feedsReducer from './slices/feed'
 
 export const store = configureStore({
-    reducer: {
-      like : likereducer
+  reducer: {
+    post: postReducer,
+    modal: modalReducer,
+    profile: profileReducer,
+    allUsers: allUsersReducer,
+    feeds: feedsReducer,
   },
 })
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
