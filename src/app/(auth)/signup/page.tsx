@@ -2,11 +2,9 @@
 import { registerNewUser } from '@/services/services'
 import { Button, CircularProgress, Input } from '@nextui-org/react'
 import Link from 'next/link'
-import { NextRouter, useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { EyeSlashFilledIcon, EyeFilledIcon } from '../login/page'
 import { signIn } from 'next-auth/react'
-// import styles from './styles.module.css'
+import { EyeFilledIcon, EyeSlashFilledIcon } from '@/assets/svg/svg'
 
 type Props = {}
 
