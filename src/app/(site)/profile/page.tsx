@@ -24,12 +24,14 @@ type Props = {}
 
 const Profile = ({}: Props) => {
   const dispatch = useDispatch<any>()
-  const { data: session }: any = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/login?callbackUrl=/profile/')
-    },
-  })
+  const { data: session }: any =
+    useSession()
+    // {
+    // required: true,
+    // onUnauthenticated() {
+    //   redirect('/login?callbackUrl=/profile/')
+    // },
+    // }
   const { data, loading } = useSelector((state: RootState) => state.profile)
   console.log('🚀 ~ file: page.tsx:28 ~ Profile ~ loading:', loading)
 
