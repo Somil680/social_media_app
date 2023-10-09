@@ -18,7 +18,7 @@ export default function Home() {
   const { data: session }: any = useSession({
     required: true,
     onUnauthenticated() {
-      redirect('/login?callbackUrl=/')
+      redirect('/login?callbackUrl=https://connecte.vercel.app/')
     },
   })
   const dispatch = useDispatch<any>()
