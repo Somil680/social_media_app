@@ -15,12 +15,14 @@ import { fetchFeedData } from '@/redux/slices/feed'
 import { openModal } from '@/redux/slices/modal'
 
 export default function Home() {
-  const { data: session }: any = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/login?callbackUrl=https://connecte.vercel.app/')
-    },
-  })
+  const { data: session }: any =
+    useSession()
+    // {
+    // required: true,
+    // onUnauthenticated() {
+    //   redirect('/login?callbackUrl=https://connecte.vercel.app')
+    // },
+    // }
   const dispatch = useDispatch<any>()
   const { data, loading, error } = useSelector(
     (state: RootState) => state.profile
