@@ -16,7 +16,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="w-full h-full flex flex-col justify-center items-center  text-foreground bg-background ">
+        <main className="w-full h-full flex flex-col justify-center items-center  text-foreground bg-background bg-#f4f2ee ">
           <Providers>{children}</Providers>
         </main>
       </body>

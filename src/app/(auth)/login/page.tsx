@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, redirect } from 'next/navigation'
 import { Button, CircularProgress, Input, Link } from '@nextui-org/react'
 import { EyeFilledIcon, EyeSlashFilledIcon } from '@/assets/svg/svg'
 type Props = {}

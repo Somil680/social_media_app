@@ -24,16 +24,9 @@ type Props = {}
 
 const Profile = ({}: Props) => {
   const dispatch = useDispatch<any>()
-  const { data: session }: any =
-    useSession()
-    // {
-    // required: true,
-    // onUnauthenticated() {
-    //   redirect('/login?callbackUrl=/profile/')
-    // },
-    // }
+  const { data: session }: any = useSession()
+
   const { data, loading } = useSelector((state: RootState) => state.profile)
-  console.log('🚀 ~ file: page.tsx:28 ~ Profile ~ loading:', loading)
 
   const handleOpenProfile = () => {
     dispatch(
@@ -54,9 +47,12 @@ const Profile = ({}: Props) => {
   }
 
   useEffect(() => {
-    if (data || !session) return
-    dispatch(fetchUserData(session?.user?._id))
-  }, [data, dispatch, session, session?.user?._id])
+    if (!session) return
+    if (!data) {
+      dispatch(fetchUserData(session?.user?._id))
+    }
+  }, [])
+
   return (
     <div className="mt-[70px]">
       {loading ? (
@@ -107,7 +103,7 @@ const Profile = ({}: Props) => {
                       src={
                         item?.profile_pic
                           ? item.profile_pic
-                          : ' https://res.cloudinary.com/duiavy8qd/image/upload/v1696592489/i61gsmv5rhenrzor65mg.png'
+                          : 'https://res.cloudinary.com/duiavy8qd/image/upload/v1696866315/y2QcxTcchVVdUGZITQpr6z96TXYOV0p3ueLL_1kIPl7s-hHn3-nh8hamBDj0GAUNAndJ9_Yuo2OzYG5Nic_hNicPq37npZ93T5Nk-A_j44ija.avif'
                       }
                       alt=""
                       isZoomed

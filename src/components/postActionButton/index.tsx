@@ -74,15 +74,15 @@ const PostActionButton = ({ userData }: Props) => {
             />
           )}
 
-          <p className="text-sm">Like </p>
+          {/* <p className="text-sm">Like </p> */}
         </span>
         <span className="flex gap-3">
           <FaRegComment fontSize={20} />
-          <p className="text-sm">Comments</p>
+          {/* <p className="text-sm">Comments</p> */}
         </span>
         <span className="flex gap-3">
           <IoPaperPlaneOutline fontSize={20} />
-          <p className="text-sm">Send</p>
+          {/* <p className="text-sm">Send</p> */}
         </span>
         <span className="flex gap-3">
           {isSaved || Saved ? (
@@ -100,11 +100,11 @@ const PostActionButton = ({ userData }: Props) => {
               }}
             />
           )}
-          {isSaved || Saved ? (
+          {/* {isSaved || Saved ? (
             <p className="text-sm">Saved</p>
           ) : (
             <p className="text-sm">Save</p>
-          )}
+          )} */}
         </span>
       </div>
     </>

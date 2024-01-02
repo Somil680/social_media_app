@@ -1,0 +1,13 @@
+.navpills-container {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    box-shadow: var(--box-shadow);
+}
+.desktop {
+    display: flex;
+}

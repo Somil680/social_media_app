@@ -1,9 +1,10 @@
 ' use client'
 import Link from 'next/link'
+import styles from './styles.module.css'
 import React, { useState } from 'react'
 import { AiFillHome } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
-import { BsMessenger } from 'react-icons/bs'
+import { BsMessenger, BsPeople } from 'react-icons/bs'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { Avatar, Card, Input, input } from '@nextui-org/react'
 import { SearchIcon } from '@/assets/svg/searchIcon'
@@ -16,6 +17,7 @@ import {
 } from '@nextui-org/react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
+import useWindowDimensions from '@/hooks/useWindowDimension'
 
 type Props = {}
 interface NavList {
@@ -29,16 +31,16 @@ const icons: NavList[] = [
     name: 'Home',
     url: '/',
   },
-  // {
-  //   icon: <BiSearch />,
-  //   name: 'Search',
-  //   url: '/',
-  // },
-  // {
-  //   icon: <BsMessenger />,
-  //   name: 'Message',
-  //   url: '/',
-  // },
+  {
+    icon: <BsPeople />,
+    name: 'Connection',
+    url: '/connection',
+  },
+  {
+    icon: <BsMessenger />,
+    name: 'Message',
+    url: '/message',
+  },
   // {
   //   icon: <VscAccount />,
   //   name: 'Profile',
@@ -71,14 +73,14 @@ const Navbar = ({}: Props) => {
     if (inputData === ' ') setIsData([])
     setLoading(false)
   }
+  const { width } = useWindowDimensions()
   return (
     <>
-      <div className="w-full flex justify-center ">
-        <div className="w-full h-16 border-2 mb-2 flex justify-evenly items-center px-3 rounded-md bg-white fixed  z-50">
+      <div className="w-full flex justify-center    ">
+        <div className="w-full h-16 border-2 mb-2 flex justify-evenly items-center px-3 rounded-md bg-white fixed  z-50   ">
           <div className="flex gap-5">
             <p className="text-4xl"> Connect </p>
-
-            <div className="w-96 relative">
+            <div className=" sm:w-96 relative">
               <Input
                 label="Search"
                 isClearable
@@ -127,7 +129,12 @@ const Navbar = ({}: Props) => {
               )} */}
             </div>
           </div>
-          <div className="flex">
+
+          <div
+            className={` ${
+              width < 800 ? styles['navpills-container'] : styles['desktop']
+            }`}
+          >
             {icons.map((item: any, index) => (
               <>
                 <Link href={item.url} key={index}>
@@ -138,11 +145,18 @@ const Navbar = ({}: Props) => {
                 </Link>
               </>
             ))}
+
             <div className="flex items-center">
               <Dropdown>
                 <DropdownTrigger>
-                  <Avatar isBordered src={userSession?.user?.profile_pic} />
-                  {/* <p>Me</p> */}
+                  <Avatar
+                    isBordered
+                    src={
+                      userSession?.user?.profile_pic
+                        ? userSession?.user?.profile_pic
+                        : data?.users?.profile_pic
+                    }
+                  />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Static Actions">
                   <DropdownItem key="new">
@@ -157,12 +171,6 @@ const Navbar = ({}: Props) => {
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
-
-              {userSession ? (
-                <button onClick={() => signOut()}>Sign out</button>
-              ) : (
-                <button onClick={() => signIn()}>Sign in</button>
-              )}
             </div>
           </div>
         </div>
@@ -171,3 +179,11 @@ const Navbar = ({}: Props) => {
   )
 }
 export default Navbar
+
+{
+  /* {userSession ? (
+                <button onClick={() => signOut()}>Sign out</button>
+              ) : (
+                <button onClick={() => signIn()}>Sign in</button>
+              )} */
+}

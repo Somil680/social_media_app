@@ -11,10 +11,10 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <>
-      <section>
-        <Navbar />
-        <main id="main">{children}</main>
-      </section>
+      <Navbar />
+      <main id="main" className="bg-#f4f2ee">
+        {children}
+      </main>
       <ModalManager />
     </>
   )

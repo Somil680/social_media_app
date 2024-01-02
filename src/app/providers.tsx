@@ -23,7 +23,9 @@ export function Providers({ children, session }: Props) {
   useEffect(() => {
     if (document.readyState === 'complete') return setShowLoader(false)
     window.addEventListener('load', () => {
-      setShowLoader(false)
+      setTimeout(() => {
+        setShowLoader(false)
+      }, 3000)
     })
   }, [])
 
@@ -31,7 +33,7 @@ export function Providers({ children, session }: Props) {
     <NextUIProvider>
       <Provider store={store}>
         <SessionProvider session={session}>
-          {showLoader ?? (
+          {showLoader ? (
             <div
               style={{
                 display: 'flex',
@@ -53,8 +55,9 @@ export function Providers({ children, session }: Props) {
                 Connect together Always
               </p>
             </div>
+          ) : (
+            <>{children}</>
           )}
-          <>{children}</>
         </SessionProvider>
         {/* <ToastContainer /> */}
       </Provider>

@@ -31,7 +31,7 @@ const PostView = () => {
           )
           return (
             <>
-              <Card className="w-[500px]" key={item._id}>
+              <Card className=" max-w-lg w-100% " key={item._id}>
                 <CardHeader className="justify-between">
                   {fetchUser?.map((row: any) => (
                     <>
@@ -60,9 +60,11 @@ const PostView = () => {
                   </div>
                   <span className="pt-2 text-default-400">
                     {item.caption}
-                    <span className="py-2" aria-label="computer" role="img">
-                      💻
-                    </span>
+                    <span
+                      className="py-2"
+                      aria-label="computer"
+                      role="img"
+                    ></span>
                     {item.image && (
                       <Image
                         width={500}

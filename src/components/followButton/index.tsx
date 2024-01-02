@@ -39,7 +39,7 @@ const FollowButton = ({ userData }: Props) => {
         variant={following || isFollowed ? 'bordered' : 'solid'}
         onClick={handleOnClick}
         onPress={() => setIsFollowed(!isFollowed)}
-        className="w-10"
+        fullWidth
       >
         {following || isFollowed ? 'Unfollow' : 'Follow'}
       </Button>
