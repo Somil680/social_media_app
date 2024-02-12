@@ -30,7 +30,6 @@ const UploadImage = ({}: Props) => {
 
   const [loading, setLoading] = useState(false)
   const { data } = useSelector((state: RootState) => state.modal)
-  console.log('🚀 ~ file: index.tsx:17 ~ UploadImage ~ data:', data?.users?._id)
   const [inputData, setInputData] = useState<InputData>({
     image_file: null,
     image_url: null,
@@ -39,7 +38,6 @@ const UploadImage = ({}: Props) => {
     const file = event.target.files?.[0]
     if (!file) return
     const url = URL.createObjectURL(file)
-    console.log('🚀 ~ file: index.tsx:42 ~ handleFileChange ~ url:', url)
     setInputData((prev) => {
       return { ...prev, image_file: file, image_url: url }
     })

@@ -1,13 +1,13 @@
-import { API_BASE_URL } from "./constant";
+import { API_BASE_URL } from './constant'
 
 /** POST UPLOAD IMAGE api/uploadImage */
-export const postUploadImage = async (data :FormData) => {
+export const postUploadImage = async (data: FormData) => {
   try {
     const res = await fetch(`${API_BASE_URL}/uploadFile`, {
       method: 'POST',
       body: data,
       // headers: { 'Content-Type': 'application/json' },
-       headers: { },
+      headers: {},
     })
     return { res: res, err: null }
   } catch (error) {
@@ -15,7 +15,7 @@ export const postUploadImage = async (data :FormData) => {
   }
 }
 /** POST REGISTER NEW USER api/user/signup */
-export const registerNewUser = async (data :any) => {
+export const registerNewUser = async (data: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/signup`, {
       method: 'POST',
@@ -44,34 +44,30 @@ export const getAllPost = async () => {
 //  GET ALL USER api/user
 export const getAllUser = async () => {
   try {
-      const res = await fetch(`${API_BASE_URL}/user/`, {
+    const res = await fetch(`${API_BASE_URL}/user/`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
     return { res: res, err: null }
   } catch (error) {
-        return { err: error, res: null }
-
-    }
-
+    return { err: error, res: null }
+  }
 }
-// GET USER BY ID 
-export const getUserById = async (id :any) => {
+// GET USER BY ID
+export const getUserById = async (id: any) => {
   try {
-      const res = await fetch(`${API_BASE_URL}/user/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/user/${id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
     return { res: res, err: null }
   } catch (error) {
-        return { err: error, res: null }
-
-    }
-
+    return { err: error, res: null }
+  }
 }
- 
+
 //  POST SENDING POST TO THE DATABASE api/post/
-export const sendingPost = async (data :any) => {
+export const sendingPost = async (data: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/post/`, {
       method: 'POST',
@@ -85,7 +81,7 @@ export const sendingPost = async (data :any) => {
 }
 
 // UPDATE USER DETAILS OF THAT USER
-export const updateUserDetails = async (inputData :any , id : any) => {
+export const updateUserDetails = async (inputData: any, id: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/user/${id}`, {
       method: 'PATCH',
@@ -97,8 +93,8 @@ export const updateUserDetails = async (inputData :any , id : any) => {
     return { err: error, res: null }
   }
 }
-// PUT REQUEST TO FOLLOW THE USER 
-export const putFollowTheUser = async (inputData :any , id : any) => {
+// PUT REQUEST TO FOLLOW THE USER
+export const putFollowTheUser = async (inputData: any, id: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/user/${id}/follow`, {
       method: 'PUT',
@@ -110,8 +106,8 @@ export const putFollowTheUser = async (inputData :any , id : any) => {
     return { err: error, res: null }
   }
 }
-// PUT REQUEST TO UNFOLLOW THE USER 
-export const putUnFollowTheUser = async (inputData :any , id : any) => {
+// PUT REQUEST TO UNFOLLOW THE USER
+export const putUnFollowTheUser = async (inputData: any, id: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/user/${id}/unfollow`, {
       method: 'PUT',
@@ -123,8 +119,8 @@ export const putUnFollowTheUser = async (inputData :any , id : any) => {
     return { err: error, res: null }
   }
 }
-// PUT REQUEST TO LIKE THE POST 
-export const putLikeThePost = async (inputData :any , id : any) => {
+// PUT REQUEST TO LIKE THE POST
+export const putLikeThePost = async (inputData: any, id: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/post/${id}`, {
       method: 'PUT',
@@ -136,9 +132,9 @@ export const putLikeThePost = async (inputData :any , id : any) => {
     return { err: error, res: null }
   }
 }
-// PUT REQUEST TO Save THE POST 
+// PUT REQUEST TO Save THE POST
 
-export const putSavedThePost = async (inputData :any , id : any) => {
+export const putSavedThePost = async (inputData: any, id: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/post/bookmark/${id}`, {
       method: 'PUT',
@@ -150,13 +146,64 @@ export const putSavedThePost = async (inputData :any , id : any) => {
     return { err: error, res: null }
   }
 }
-// PUT REQUEST TO Un Save THE POST 
+// PUT REQUEST TO Un Save THE POST
 
-export const putUnSavedThePost = async (inputData :any , id : any) => {
+export const putUnSavedThePost = async (inputData: any, id: any) => {
   try {
     const res = await fetch(`${API_BASE_URL}/post/removebookmark/${id}`, {
       method: 'PUT',
       body: JSON.stringify(inputData),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    return { res: res, err: null }
+  } catch (error) {
+    return { err: error, res: null }
+  }
+}
+
+// POST COMMENT IN THE POST
+export const commentOnThePost = async (data: any, id: string) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/post/comment/${id}`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    return { res: res, err: null }
+  } catch (error) {
+    return { err: error, res: null }
+  }
+}
+// GET ALL ROOMS OF USER api/rooms/id
+export const getAllRooms = async (id: string) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/room/${id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    return { res: res, err: null }
+  } catch (error) {
+    return { err: error, res: null }
+  }
+}
+// GET ALL ROOMS  OF MESSAGE api/message/id
+export const getAllMessageById = async (id: string) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/message/${id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    return { res: res, err: null }
+  } catch (error) {
+    return { err: error, res: null }
+  }
+}
+// Post ALL ROOMS  OF MESSAGE api/message/
+export const postMessageById = async (data: any) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/message/`, {
+      method: 'POST',
+      body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' },
     })
     return { res: res, err: null }

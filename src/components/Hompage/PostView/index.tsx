@@ -14,6 +14,7 @@ import { formatDistanceToNowStrict } from 'date-fns'
 import PostActionButton from '@/components/postActionButton'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
+import styles from './styles.module.css'
 
 const PostView = () => {
   const { data, loading, error } = useSelector(
@@ -23,7 +24,7 @@ const PostView = () => {
 
   return (
     <>
-      <section className="w-full h-full  flex flex-col items-center gap-y-3 ">
+      <section className={styles['main-container']}>
         {data?.map((item: any, index: any) => {
           const likeArr: string[] = item?.like ? Object.values(item?.like) : []
           const fetchUser = userData?.filter(
@@ -31,8 +32,9 @@ const PostView = () => {
           )
           return (
             <>
-              <Card className=" max-w-lg w-100% " key={item._id}>
-                <CardHeader className="justify-between">
+              <div className={styles['container']} key={item._id}>
+                {/* user name */}
+                <div className={styles['user-container']}>
                   {fetchUser?.map((row: any) => (
                     <>
                       <div className="flex gap-5" key={row._id}>
@@ -53,18 +55,15 @@ const PostView = () => {
                       </div>
                     </>
                   ))}
-                </CardHeader>
-                <CardBody className="px-3 py-0 text-small  overscroll-none  overscroll-y-none overflow-y-hidden">
-                  <div className="flex items-end">
+                </div>
+
+                {/* content image */}
+                <div className={styles['content']}>
+                  <span className="flex items-end">
                     <p>{item.content}</p>
-                  </div>
+                  </span>
                   <span className="pt-2 text-default-400">
                     {item.caption}
-                    <span
-                      className="py-2"
-                      aria-label="computer"
-                      role="img"
-                    ></span>
                     {item.image && (
                       <Image
                         width={500}
@@ -74,7 +73,7 @@ const PostView = () => {
                       />
                     )}
                   </span>
-                  <Divider className="mt-4 mb-1" />
+                  <Divider />
                   <div className="flex gap-1 items-center justify-between px-1">
                     <span className="flex gap-1 items-center ">
                       <p className=" text-default-400 text-small">
@@ -92,12 +91,15 @@ const PostView = () => {
                       </p>
                     </div>
                   </div>
-                  <Divider className="mt-1" />
-                </CardBody>
-                <CardFooter className="gap-2">
+                  <Divider />
+                </div>
+
+                {/* actiion button */}
+
+                <div className="gap-2">
                   <PostActionButton userData={item} />
-                </CardFooter>
-              </Card>
+                </div>
+              </div>
             </>
           )
         })}

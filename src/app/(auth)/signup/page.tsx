@@ -22,11 +22,9 @@ const SignUp = ({}: Props) => {
   const handleSubmit = async (e: any) => {
     setLoading(true)
     e.preventDefault()
-    console.log('🚀 ~ file: page.tsx:18 ~ handleSubmit ~ inputData:', inputData)
     const { res, err } = await registerNewUser(inputData)
     if (err || !res) throw new Error('Fetch failed')
     const { user } = await res.json()
-    console.log('🚀 ~ file: page.tsx:23 ~ handleSubmit ~ user:', user)
     const result = await signIn('credentials', {
       email: inputData.email,
       password: inputData.password,

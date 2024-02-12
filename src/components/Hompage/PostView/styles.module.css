@@ -1,0 +1,24 @@
+.main-container {
+    width: 100%;
+    min-width: 362px;
+    max-width: 450px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+.main-container .container {
+    width: 100%;
+    box-shadow: var(--box-shadow);
+    border-radius: 11px;
+    padding: 10px;
+}
+.container .user-container {
+}
+.container .content {
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

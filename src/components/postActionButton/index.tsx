@@ -2,17 +2,19 @@ import { fetchFeedData } from '@/redux/slices/feed'
 import { fetchUserData } from '@/redux/slices/userData'
 import { RootState } from '@/redux/store'
 import {
+  commentOnThePost,
   putLikeThePost,
   putSavedThePost,
   putUnSavedThePost,
 } from '@/services/services'
 import React, { useState } from 'react'
-// import styles from './styles.module.css'
+import styles from './styles.module.css'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 import { BsHeart, BsHeartFill } from 'react-icons/bs'
 import { FaRegComment } from 'react-icons/fa'
 import { IoPaperPlaneOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
+import { Avatar } from '@nextui-org/react'
 
 type Props = {
   userData: any
@@ -20,9 +22,7 @@ type Props = {
 
 const PostActionButton = ({ userData }: Props) => {
   const dispatch = useDispatch<any>()
-
   const { data } = useSelector((state: RootState) => state.profile)
-  console.log('🚀 ~ file: index.tsx:25 ~ PostActionButton ~ data:', data)
   const [isLike, setIsLike] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
   const liked = userData?.like.includes(data?.users?._id)
@@ -31,7 +31,7 @@ const PostActionButton = ({ userData }: Props) => {
 
   const handleOnClick = async () => {
     const jsonData = {
-      userId: data?.users?._id,
+      userId: data?.users?.id,
     }
     const { res, err } = await putLikeThePost(jsonData, userData?._id)
     if (err || !res || !res.ok) throw new Error('Fetch failed!')
@@ -52,11 +52,23 @@ const PostActionButton = ({ userData }: Props) => {
       const { message } = await res.json()
     }
   }
+  const [openComment, setOpenComment] = useState(false)
+  const [inputMessage, setInputMessage] = useState('')
+  const handleCommentBox = async () => {
+    const jsonData = {
+      content: inputMessage,
+      userId: data?.users?._id,
+    }
+
+    const { res, err } = await commentOnThePost(jsonData, userData?._id)
+    if (err || !res) throw new Error('Fetch failed')
+    const { post } = await res.json()
+  }
 
   return (
-    <>
-      <div className=" w-full flex justify-between gap-3">
-        <span className="flex gap-3">
+    <div className={styles['main-container']}>
+      <div className={styles['container']}>
+        <span>
           {isLike || liked ? (
             <BsHeartFill
               onClick={() => {
@@ -76,15 +88,15 @@ const PostActionButton = ({ userData }: Props) => {
 
           {/* <p className="text-sm">Like </p> */}
         </span>
-        <span className="flex gap-3">
+        <span onClick={() => setOpenComment(!openComment)}>
           <FaRegComment fontSize={20} />
           {/* <p className="text-sm">Comments</p> */}
         </span>
-        <span className="flex gap-3">
+        <span>
           <IoPaperPlaneOutline fontSize={20} />
           {/* <p className="text-sm">Send</p> */}
         </span>
-        <span className="flex gap-3">
+        <span>
           {isSaved || Saved ? (
             <BsBookmarkFill
               fontSize={20}
@@ -107,7 +119,33 @@ const PostActionButton = ({ userData }: Props) => {
           )} */}
         </span>
       </div>
-    </>
+      {openComment && (
+        <div className={styles['comment-container']}>
+          <span>
+            <Avatar
+              isBordered
+              radius="full"
+              size="sm"
+              src={data?.users?.profile_pic}
+            />
+            <input
+              type="text"
+              onChange={(e: any) => setInputMessage(e.target.value)}
+            />
+            <button disabled={inputMessage === ''} onClick={handleCommentBox}>
+              Post
+            </button>
+          </span>
+          <div>
+            {userData.comments.map((item: any) => (
+              <div key={item.userId} className=" ">
+                <p>{item?.content}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 

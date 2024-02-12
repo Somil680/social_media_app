@@ -1,0 +1,38 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+.main-container .container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+.container span {
+    display: flex;
+    gap: 12px;
+}
+.comment-container {
+    display: flex;
+    flex-direction: column;
+}
+.comment-container span {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.comment-container span input {
+    box-shadow: var(--box-shadow);
+    border-radius: 20px;
+    height: 30px;
+    width: 80%;
+    padding: 0 20px;
+}
+.comment-container span button {
+    border: 1px solid;
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+}

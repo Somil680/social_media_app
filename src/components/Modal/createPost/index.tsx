@@ -27,7 +27,6 @@ type InputData = {
 }
 const CreatePost = ({}: Props) => {
   const { data } = useSelector((state: RootState) => state.profile)
-  console.log('🚀 ~ file: index.tsx:37 ~ CreatePost ~ data:', data)
   const [loading, setLoading] = useState(false)
   const [inputData, setInputData] = useState<InputData>({
     content: '',
@@ -86,7 +85,6 @@ const CreatePost = ({}: Props) => {
       setLoading(false)
     } else {
       setLoading(true)
-      console.log('else working')
       const jsonData = {
         postId: data?.users?._id,
         content: inputData.content,

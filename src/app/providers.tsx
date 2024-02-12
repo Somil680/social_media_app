@@ -16,10 +16,7 @@ interface Props {
 
 export function Providers({ children, session }: Props) {
   const [showLoader, setShowLoader] = useState(true)
-  console.log(
-    '🚀 ~ file: providers.tsx:19 ~ Providers ~ showLoader:',
-    showLoader
-  )
+
   useEffect(() => {
     if (document.readyState === 'complete') return setShowLoader(false)
     window.addEventListener('load', () => {

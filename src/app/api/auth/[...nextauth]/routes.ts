@@ -6,7 +6,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 const authOptions = {
   // Configure one or more authentication providers
   providers: [
-
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -27,11 +26,9 @@ const authOptions = {
         })
         let user = await res.json()
         user = user?.data
-        console.log(user)
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
-          console.log('hello')
           return user
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
@@ -41,10 +38,10 @@ const authOptions = {
         }
       },
     }),
-          GoogleProvider({
-    clientId: process.env.GOOGLE_CLIENT_ID as string, 
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
-  })
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
   callbacks: {
     async jwt({ token, user, trigger, session }: any) {

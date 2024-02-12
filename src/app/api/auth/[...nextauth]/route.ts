@@ -14,22 +14,19 @@ const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
 
-        async authorize(credentials, req) {
-          
+      async authorize(credentials, req) {
         const res = await fetch(`${API_BASE_URL}/auth/login`, {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: credentials?.email,
-                password: credentials?.password,
-            }),
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: credentials?.email,
+            password: credentials?.password,
+          }),
         })
-        let {user} = await res.json()
-        console.log("🚀 ~ file: route.ts:30 ~ authorize ~ user:", user)
+        let { user } = await res.json()
         if (user) {
-          console.log('hello')
           return user
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
@@ -38,16 +35,16 @@ const authOptions = {
         }
       },
     }),
-      GoogleProvider({
-    clientId: process.env.GOOGLE_CLIENT_ID as any, 
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET as any
-      }),
-        GitHubProvider({
-    clientId: process.env.GITHUB_ID as string,
-    clientSecret: process.env.GITHUB_CLIENT_ID as string
-  })
-    ],
-      debug: true,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as any,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as any,
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_ID as string,
+    }),
+  ],
+  debug: true,
   session: {
     strategy: 'jwt' as SessionStrategy,
     maxAge: 5 * 60 * 60,
@@ -65,14 +62,12 @@ const authOptions = {
 
     async session({ session, token }: any) {
       session.user = token
-      console.log("🚀 ~ file: route.ts:56 ~ session ~ session.user = token:", session.user )
       session.accessToken = token.token.accessToken as any
-      console.log("🚀 ~ file: route.ts:58 ~ session ~  session.accessToken:",  session.accessToken)
       return session
     },
-     async signIn({ account , profile }:any) {
-      if (account.provider === "google") {
-        return profile.email_verified && profile.email.endsWith("@gmail.com")
+    async signIn({ account, profile }: any) {
+      if (account.provider === 'google') {
+        return profile.email_verified && profile.email.endsWith('@gmail.com')
       }
       return true // Do different verification for other providers that don't have `email_verified`
     },

@@ -14,7 +14,6 @@ const BookmarkButton = ({ item }: Props) => {
   const dispatch = useDispatch()
   const isBookmark = useSelector((state: RootState) => state.post.isBookmark)
   const isInBookmark = isBookmark.some((element) => element._id === item._id)
-  console.log(isInBookmark)
   function toggleHandler() {
     if (isInBookmark) {
       dispatch(RemoveBookmark(item._id))

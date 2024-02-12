@@ -66,10 +66,7 @@ const Navbar = ({}: Props) => {
         item.username.toLowerCase().includes(inputData.toLowerCase())
     )
     setIsData(filterData)
-    console.log(
-      '🚀 ~ file: index.tsx:68 ~ handleChange ~ inputData:',
-      inputData
-    )
+
     if (inputData === ' ') setIsData([])
     setLoading(false)
   }

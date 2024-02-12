@@ -14,7 +14,6 @@ const LikeButton = ({ item }: Props) => {
   const isLiked = useSelector((state: RootState) => state.post.isLiked)
 
   const isInLiked = isLiked.some((element) => element._id === item._id)
-  console.log(isInLiked)
   function toggleHandler() {
     if (isInLiked) {
       dispatch(DisLikedBy(item._id))

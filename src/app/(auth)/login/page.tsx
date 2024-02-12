@@ -18,7 +18,6 @@ const LogIn = ({}: Props) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     setLoading(true)
-    console.log('🚀 ~ file: page.tsx:12 ~ LogIn ~ inputData:', inputData)
     const result = await signIn('credentials', {
       email: inputData.email,
       password: inputData.password,
